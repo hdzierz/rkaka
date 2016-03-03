@@ -32,8 +32,8 @@ pkgBio("pathview")
 pkgBio("DESeq2")
 
 
-kaka.config.port='8003'
-kaka.config.host='10.1.8.120'
+kaka.config.port='80'
+kaka.config.host='web'
 
 kaka.qry_json <- function(realm, qry, host=kaka.config.host, port=kaka.config.port){
     qry = URLencode(qry)
