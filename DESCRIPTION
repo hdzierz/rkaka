@@ -1,7 +1,7 @@
 Package: rkaka
 Type: Package
 Title: R API to Database Kaka (rkaka)
-Version: 0.1.0
+Version: 0.1.1
 Author: Helge Dzierzon
 Maintainer: <helge.dzierzon@plantandfood.co.nz>
 Description: This is an API to the datbase system Kaka (https://github.com/hdzierz/Kaka)
