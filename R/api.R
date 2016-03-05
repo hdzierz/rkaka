@@ -28,6 +28,7 @@ pkgBio <- function(x)
 
 
 pkgTest("utils")
+pkgTest("curl")
 pkgBio("pathview")
 pkgBio("DESeq2")
 
@@ -39,7 +40,7 @@ kaka.qry_json <- function(realm, qry, host=kaka.config.host, port=kaka.config.po
     qry = URLencode(qry)
     qry_str <- paste("http://",host,":",port,"/qry/",realm,"/?qry=",qry,sep="")
     print(qry_str)
-    dat <- read.csv(qry_str, stringsAsFactors=FALSE)
+    dat <- read.csv(curl(qry_str), stringsAsFactors=FALSE)
     dat
 }
 
