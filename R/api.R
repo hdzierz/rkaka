@@ -28,7 +28,7 @@ pkgBio <- function(x)
 
 
 pkgTest("utils")
-pkgTest("curl")
+library("curl")
 pkgBio("pathview")
 pkgBio("DESeq2")
 
@@ -45,7 +45,7 @@ kaka.qry_json <- function(realm, qry, host=kaka.config.host, port=kaka.config.po
 }
 
 
-kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port){
+kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, columns=NULL){
     tt <- grep("[a-zA-Z0-9\\s\'\"]=[a-zA-Z0-9\\s\'\"]", expr)
     if(length(tt)>0){
         print("ERROR: You seem to have a single = in your expression. If it is a comparison operator use ==.")
@@ -53,6 +53,12 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port){
     }
     qry <- paste(expr,"&infmt=python",sep="")
     dat <- kaka.qry_json(realm, qry, host, port)
+    if(is.null(columns)){
+        return(dat)
+    }
+    else{
+        return(dat[columns])
+    }
 }
 
 
