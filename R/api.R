@@ -28,7 +28,7 @@ pkgBio <- function(x)
 
 
 pkgTest("utils")
-library("curl")
+pkgTest("curl")
 pkgBio("pathview")
 pkgBio("DESeq2")
 
