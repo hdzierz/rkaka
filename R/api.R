@@ -6,32 +6,6 @@
 #' @export
 #'
 #' @examples
-pkgTest <- function(x)
-{
-    if (!require(x,character.only = TRUE))
-    {
-        install.packages(x,dep=TRUE)
-        if(!require(x,character.only = TRUE)) stop("Package not found")
-    }
-}
-
-pkgBio <- function(x)
-{
-    if (!require(x,character.only = TRUE))
-    {
-        source("http://bioconductor.org/biocLite.R")
-        biocLite(x)
-        if(!require(x,character.only = TRUE)) stop("Package not found")
-    }
-}
-
-
-
-pkgTest("utils")
-pkgTest("curl")
-pkgBio("pathview")
-pkgBio("DESeq2")
-
 
 kaka.config.port='80'
 kaka.config.host='web'
@@ -65,14 +39,14 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, 
 kaka.deseq2 <- function(experiment="gene_expression"){
     # Get design for exeriment
 
-    dat.tgt <- kaka.qry_python("design", paste("experiment=='",experiment,"'", sep=""))
+    dat.tgt <- kaka.qry("design", paste("experiment=='",experiment,"'", sep=""))
     rownames(dat.tgt) <- dat.tgt$phenotype
     dat.tgt$phenotype <- NULL
     print(head(dat.tgt))
 
     # Load Data
 
-    dat.kaka <- kaka.qry_python("genotype", paste("experiment=='",experiment,"'", sep=""))
+    dat.kaka <- kaka.qry("genotype", paste("experiment=='",experiment,"'", sep=""))
     rownames(dat.kaka) <- dat.kaka$name
     print(head(dat.kaka))
 
