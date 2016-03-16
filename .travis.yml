@@ -1,0 +1,16 @@
+language: r
+
+
+scripts:
+    Rscript tests.R
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#inasafe"
+    use_notice: true
+
+  email:
+    - helge.dzierzon@plantandfood.co.nz
+
+
