@@ -8,6 +8,16 @@
 #' @examples
 
 
+pkgBio <- function(x)        
+{     
+    if (!require(x,character.only = TRUE))        
+    {     
+        source("http://bioconductor.org/biocLite.R")      
+        biocLite(x)       
+        if(!require(x,character.only = TRUE)) stop("Package not found")       
+    }     
+}
+
 kaka.config.port='80'
 kaka.config.host='web'
 
@@ -38,6 +48,7 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, 
 
 
 kaka.deseq2 <- function(experiment="gene_expression"){
+    pkgBio("DESeq2")
     # Get design for exeriment
 
     dat.tgt <- kaka.qry("design", paste("experiment=='",experiment,"'", sep=""))
@@ -91,6 +102,7 @@ kaka.deseq2 <- function(experiment="gene_expression"){
 
 
 kaka.pathview <- function(res, pathway.id="00941", gene.idtype="TAIR", species="ath", out.suffix="what"){
+    pkgBio("pathview")
     res$gene <- sub("\\.[0-9]","",rownames(res))
     res.pw <- res[!duplicated(res$gene), ]
     rownames(res.pw) <- res.pw$gene
