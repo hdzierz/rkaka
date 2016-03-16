@@ -47,7 +47,7 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, 
 }
 
 
-kaka.deseq2 <- function(experiment="gene_expression"){
+kaka.deseq2 <- function(experiment="gene_expression", host=kaka.config.host, port=kaka.config.port){
     pkgBio("DESeq2")
     # Get design for exeriment
 
@@ -101,7 +101,7 @@ kaka.deseq2 <- function(experiment="gene_expression"){
 }
 
 
-kaka.pathview <- function(res, pathway.id="00941", gene.idtype="TAIR", species="ath", out.suffix="what"){
+kaka.pathview <- function(res, pathway.id="00941", gene.idtype="TAIR", species="ath", out.suffix="what", host=kaka.config.host, port=kaka.config.port){
     pkgBio("pathview")
     res$gene <- sub("\\.[0-9]","",rownames(res))
     res.pw <- res[!duplicated(res$gene), ]
