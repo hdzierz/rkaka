@@ -1,6 +1,5 @@
 #!/bin/R
 
-install.packages("devtools")
 devtools::install_github("hdzierz/rkaka", ref="lod_lib")
 
 library(rkaka)
