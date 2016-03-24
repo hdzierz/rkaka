@@ -7,4 +7,5 @@ Maintainer: <helge.dzierzon@plantandfood.co.nz>
 Description: This is an API to the datbase system Kaka (https://github.com/hdzierz/Kaka)
 License: GPL
 LazyData: TRUE
-Depends: utils,curl,pathview,DESeq2 
+Depends: utils,curl
+Suggests: dplyr 
