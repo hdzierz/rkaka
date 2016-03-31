@@ -55,21 +55,21 @@ The return value is an R data frame.
 To obtain data from Kaka you run which loads an example data set:
 
 ```
-dat <- kaka.qry('genotype', experiment=='gene_expression')
+dat <- kaka.qry('genotype', experiment=='Gene Expression')
 dat
 ```
 
 Or more complicated:
 
 ```
-dat <- Kaka.qry('genotype', "experiment=='gene_expression' and genotype==regex('^A123.*')")
+dat <- kaka.qry('genotype', "experiment=='Gene Expression' and gene==regex('^AT1G029.*')")
 dat
 ```
 
 Gene expression data (any data really) can be supplemented with exprimental design information similar to the old micro array targets file:
 
 ```
-dat <- kaka.qry('design', "experiment=='gene_expression'")
+dat <- kaka.qry('design', "experiment=='Gene Expression'")
 dat
 ```
 
