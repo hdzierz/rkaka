@@ -1,25 +1,37 @@
-#' Title
+#' Automatically loading/installing biocinductor packages if necessary
 #'
-#' @param x
+#' @param A package name
 #'
-#' @return
-#' @export
+#' @return Nothing
 #'
 #' @examples
+#' pkgBio('deseq2')
 
 
-pkgBio <- function(x)        
-{     
-    if (!require(x,character.only = TRUE))        
-    {     
-        source("http://bioconductor.org/biocLite.R")      
-        biocLite(x)       
-        if(!require(x,character.only = TRUE)) stop("Package not found")       
-    }     
+pkgBio <- function(x)
+{
+    if (!require(x,character.only = TRUE))
+    {
+        source("http://bioconductor.org/biocLite.R")
+        biocLite(x)
+        if(!require(x,character.only = TRUE)) stop("Package not found")
+    }
 }
 
 kaka.config.port='80'
 kaka.config.host='web'
+
+#' Querying Kaka using json (helper for kaka.qry)
+#'
+#' @param realm A data realm
+#' @param qry A pql query
+#' @param host Web host to talk to (default web)
+#' @param port Port to web host (default 80, but often 8001)
+#'
+#' @return data_frame
+#'
+#' @examples
+#' pkgBio('deseq2')
 
 kaka.qry_json <- function(realm, qry, host=kaka.config.host, port=kaka.config.port){
     qry = URLencode(qry)
@@ -29,6 +41,17 @@ kaka.qry_json <- function(realm, qry, host=kaka.config.host, port=kaka.config.po
     dat
 }
 
+#' Querying Kaka
+#'
+#' @param realm A data realm
+#' @param expr A pql query expression
+#' @param host Web host to talk to (default web)
+#' @param port Port to web host (default 80, but often 8001)
+#'
+#' @return data_frame
+#'
+#' @examples
+#' dat <- kaka.qry('genotype', experiment=='Gene Expression')
 
 kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, columns=NULL){
     tt <- grep("[a-zA-Z0-9\\s\'\"]=[a-zA-Z0-9\\s\'\"]", expr)
@@ -46,6 +69,19 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, 
     }
 }
 
+#' Getting configuration for an experiment and data_source
+#'
+#' @param realm A data realm
+#' @param experiment A name of an experiment
+#' @param data_source A name of a data source
+#' @param host Web host to talk to (default web)
+#' @param port Port to web host (default 80, but often 8001)
+#'
+#' @return data_frame
+#'
+#' @examples
+#' dat <- kaka.get_config('genotype', experiment=='Gene Expression', data_source='')
+
 
 kaka.get_config <-function(realm, experiment, data_source, host=kaka.config.host, port=kaka.config.port){
         url <- paste('http://', host, ':', port, '/config?experiment=', experiment, '&data_source=', data_source, sep='')
@@ -55,10 +91,22 @@ kaka.get_config <-function(realm, experiment, data_source, host=kaka.config.host
 }
 
 
+#' Sending data to Kaka
+#'
+#' @param data A data frame
+#' @param config A confiuguration dict (see examples)
+#' @param host Web host to talk to (default web)
+#' @param port Port to web host (default 80, but often 8001)
+#'
+#' @return data_frame
+#'
+#' @examples
+#' dat <- kaka.get_config('genotype', experiment=='Gene Expression', data_source='')
+
 kaka.send <- function(data, config, host=kaka.config.host, port=kaka.config.port){
     ser <- toJSON(data)
     config <- toJSON(config)
-   
+
     data<-list("dat"=ser,"config"=config)
 
     postToHost(host=host,path='/send',data.to.send=data,port=port)
