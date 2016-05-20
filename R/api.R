@@ -47,6 +47,61 @@ kaka.qry <- function(realm, expr, host=kaka.config.host, port=kaka.config.port, 
 }
 
 
+kaka.get_config <-function(realm, experiment, data_source, host=kaka.config.host, port=kaka.config.port){
+        url <- paste('http://', host, ':', port, '/config?experiment=', experiment, '&data_source=', data_source, sep='')
+        print(url)
+        cfg <- fromJSON(url)
+        cfg
+}
+
+
+kaka.send <- function(data, config, host=kaka.config.host, port=kaka.config.port){
+    ser <- toJSON(data)
+    config <- toJSON(config)
+   
+    data<-list("dat"=ser,"config"=config)
+
+    postToHost(host=host,path='/send',data.to.send=data,port=port)
+}
+
+#    @staticmethod
+#    def send_destroy(realm, experiment, key, cfg=cfg):
+#        url = 'http://' + cfg['web_host']  + ':' + cfg['web_port']  + '/destroy?realm=' + realm  + '&experiment=' + experiment + '&password=' + key + '&mode=Destroy'
+#        print(url)
+#        req = urll.urlopen(url)
+#        print(req.read())
+
+    #@staticmethod
+    #def send_clean(realm, experiment, key, cfg=cfg):
+    #    url = 'http://' + cfg['web_host']  + ':' + cfg['web_port']  + '/destroy?realm=' + realm  + '&experiment=' + experiment + '&password=' + key + '&mode=Clean'
+    #    print(url)
+    #    req = urll.urlopen(url)
+    #    print(req.read())
+
+    #@staticmethod
+    #def send_passwd(realm, experiment, key, cfg=cfg):
+    #    url = 'http://' + cfg['web_host']  + ':' + cfg['web_port']  + '/destroy?realm=' + realm  + '&experiment=' + experiment + '&password=' + key + '&mode=Resetpwd'
+    #    print(url)
+    #    req = urll.urlopen(url)
+    #    print(req.read())
+
+    #@staticmethod
+    #def send(data, config, cfg=cfg):
+    #    if not check_config(config):
+    #        return False
+
+    #    host = cfg["web_host"]
+    #    port = str(cfg["web_port"])
+
+    #    if(hasattr(data, "to_dict")):
+    #        data = data.to_dict(orient="records")
+    #    if(MODE == "python3"):
+    #        Kaka.send_p3(data, config, host, port)
+    #    else:
+    #        Kaka.send_p2(data, config, host, port)
+
+
+
 kaka.deseq2 <- function(experiment="gene_expression", host=kaka.config.host, port=kaka.config.port){
     pkgBio("DESeq2")
     # Get design for exeriment
