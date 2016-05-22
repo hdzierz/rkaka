@@ -91,6 +91,35 @@ kaka.get_config <-function(realm, experiment, data_source, host=kaka.config.host
 }
 
 
+kaka.init_config <- function(realm, experiment="", data_source=""){
+        config = list(
+            "DataSource"=list(
+                "Format"= "python_dict",
+                "IdColumn"= "" ,
+                "Name"= data_source,
+                "Source" = '',
+                "Group"= "",
+                "Type"= "",
+                "Creator"= "",
+                "Mode"= "Override",
+                "Contact"= ""
+            ),
+            "Experiment"=list(
+                "Name" =experiment,
+                "Code"= "",
+                "Date"= "",
+                "Description"= "",
+                "Realm"= realm,
+                "Password"= "",
+                "Pi"= "",
+                "Species"= "",
+                "Contact"= ""
+            )
+        )
+        config
+}
+
+
 #' Sending data to Kaka
 #'
 #' @param data A data frame
@@ -132,23 +161,6 @@ kaka.send <- function(data, config, host=kaka.config.host, port=kaka.config.port
     #    print(url)
     #    req = urll.urlopen(url)
     #    print(req.read())
-
-    #@staticmethod
-    #def send(data, config, cfg=cfg):
-    #    if not check_config(config):
-    #        return False
-
-    #    host = cfg["web_host"]
-    #    port = str(cfg["web_port"])
-
-    #    if(hasattr(data, "to_dict")):
-    #        data = data.to_dict(orient="records")
-    #    if(MODE == "python3"):
-    #        Kaka.send_p3(data, config, host, port)
-    #    else:
-    #        Kaka.send_p2(data, config, host, port)
-
-
 
 kaka.deseq2 <- function(experiment="gene_expression", host=kaka.config.host, port=kaka.config.port){
     pkgBio("DESeq2")
