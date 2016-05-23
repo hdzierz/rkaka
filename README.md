@@ -85,9 +85,87 @@ dat
 8	PFD1002L4R2	untreated	paired-end
 ```
 
-## DESeq2
+## Getting Data In
 
-## pathview
+rkaka has the ability to process data into the database. All data will be associated with an Experiment as well as a DataSource. Each Experiment and DataSource has a unique name. These names are impartant as
+ all operations (delete data, reload data, load data) will be associated with them. There cannot be two Experiments or DataSources with the same name. The Experiment also requires
+some basic meta info (please see the configuration below).
 
+The method you can use for sending data is called "send" and is part of the Kaka api:
+
+```
+Kaka.send(data,config)
+```
+
+Whereby:
+
+- data is your data set which can be either a pandas DataFrame or an array of dicts. **The data needs a unique ID column!** 
+- config is a configuration dict
+
+**The configuration dict:**
+
+The configuration dict needs the following entries:
+
+- Experiment 
+ - Code: A unique name of the experiment the data are associated with. Please use characters, numbers and underscores only.
+ - Date: The Date of your experiment
+ - Description: A brief description of your experiment
+ - Password: Allocate a password. This will protect your experiment from others overriding your data.
+ - Pi: Who is the PI of the experiment
+ - Realm: The realm your experiment belongs to (e.g. Genotype or Seafood). You cannot create a new one. Please contact admin as above
+ - Password: A password or key that will protect your experiment from others tampering with it
+- DataSource
+ - Format: Can only be **python_dict** at the moment
+ - IdColumn: Your data requires a unique ID column
+ - Name: This can be either a path to a file or a unique name of your data set
+ - Group: Data might be grouped in an experiment like treatments [optional]
+ - Creator: Who has craeted the data?
+ - Contact: A contact email address 
+ - Mode: Can be "Clean", "Override", "Append"
+
+Just a wee explanation about the **Mode**:
+
+**Override:** This will delete all data in the experiment for your DataSource before your data is loaded. 
+**Clean:** This will delete all data in a DataSource associated with your experiment
+**Append:** Append will not delete anything but append all data you specify to the DataSource in an Experiment 
+**Destroy:** All above modes leave  trace of the experiment and DataSources. Destroy will also clean those.
+
+
+** Example of a config dict for loading a hapmap into Kaka:**
+
+```
+config = list(
+    "DataSource"= list(
+        "Format"= "python_dict",
+        "IdColumn"= "rs#" , 
+        "Name"= '/tmp/',
+        "Group"= "None",
+        "Creator"= "Helge",
+        "Contact"= "helge.dzierzon@plantandfood.co.nz"
+    ),
+    "Experiment"=list(
+        "Code"= "HapMap_Test",
+        "Date"= "2016-01-07",
+        "Description"= "REST test",
+        "Realm"= "Genotype",
+        "Mode"= "Override",
+        "Password"= "inkl67z",
+        "Pi"= "Willi Wimmer",
+        "Species"= "Cymbidium",
+        "Password"= "your_password"
+    )
+)
+```
+
+## Configuring teh host and port
+
+If you don't acccess the pyrat docker instance you  need to configure the host and port. PyKaka uses a cfg structure:
+
+```
+cfg["web_host"] = 'wkoppb31.pfr.co.nz'
+cfg["web_port"] = "8001"
+Kaka.qry(..., cfg=cfg)
+Kaka.send(...,cfg=cfg)
+```
 
 
