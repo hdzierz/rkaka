@@ -4,12 +4,12 @@ Title: R API to Database Kaka (rkaka)
 Version: 0.1.1
 Author: Helge Dzierzon
 Maintainer: <helge.dzierzon@plantandfood.co.nz>
-Description: This is an API to the datbase system Kaka (https://github.com/
+Description: This is an API to the database system Kaka (https://github.com/
     hdzierz/Kaka)
 License: GPL
 LazyData: TRUE
 Depends:
-    utils,curl
+    utils,curl,jsonlite
 Suggests:
     dplyr
 RoxygenNote: 5.0.1
