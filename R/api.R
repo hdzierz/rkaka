@@ -216,14 +216,14 @@ kaka.deseq2 <- function(experiment="gene_expression", host=kaka.config.host, por
 }
 
 
-kaka.pathview <- function(res, pathway.id="00941", gene.idtype="TAIR", species="ath", out.suffix="what"){
+kaka.pathview <- function(res, col=2, pathway.id="00941", gene.idtype="TAIR", species="ath", out.suffix="what"){
     pkgBio("pathview")
     res$gene <- sub("\\.[0-9]","",rownames(res))
     res.pw <- res[!duplicated(res$gene), ]
     rownames(res.pw) <- res.pw$gene
     print(head(res.pw))
 
-    res.pwana <- res.pw[,2]
+    res.pwana <- res.pw[,col]
     names(res.pwana) <- res.pw$gene
     print(pathway.id)
 
