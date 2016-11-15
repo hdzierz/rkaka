@@ -1,5 +1,6 @@
 language: r
 
+sudo: required
 
 scripts:
     Rscript tests.R
