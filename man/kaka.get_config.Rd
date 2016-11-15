@@ -25,6 +25,6 @@ data_frame
 Getting configuration for an experiment and data_source
 }
 \examples{
-dat <- kaka.get_config('genotype', experiment=='Gene Expression', data_source='')
+dat <- kaka.get_config('genotype', experiment='Gene Expression', data_source='')
 }
 
