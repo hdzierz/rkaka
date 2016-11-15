@@ -55,7 +55,7 @@ The return value is an R data frame.
 To obtain data from Kaka you run which loads an example data set:
 
 ```
-dat <- kaka.qry('genotype', experiment=='Gene Expression')
+dat <- kaka.qry('genotype', "experiment=='Gene Expression'")
 dat
 ```
 
