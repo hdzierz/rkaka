@@ -162,10 +162,10 @@ config = list(
 If you don't acccess the pyrat docker instance you  need to configure the host and port. PyKaka uses a cfg structure:
 
 ```
-cfg["web_host"] = 'wkoppb31.pfr.co.nz'
-cfg["web_port"] = "8001"
-Kaka.qry(..., cfg=cfg)
-Kaka.send(...,cfg=cfg)
+host <- 'wkoppb31.pfr.co.nz'
+port <-  "8001"
+Kaka.qry(..., host=host)
+Kaka.send(...,port=port)
 ```
 
 
