@@ -1,6 +1,6 @@
 #!/bin/R
 
-devtools::install_github("PlantandFoodResearch/rkaka", ref="lod_lib")
+devtools::install_github("PlantandFoodResearch/rkaka")
 
 library(rkaka)
 
